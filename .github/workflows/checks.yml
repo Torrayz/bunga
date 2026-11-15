@@ -1,0 +1,16 @@
+name: Blooming Garden checks
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate controls JavaScript
+        run: node --check garden-controls.js
+      - name: Check required pages
+        run: test -f index.html && test -f flower.html && test -f css/main.css && test -f css/controls.css
